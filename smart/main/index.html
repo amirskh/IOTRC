@@ -1,0 +1,487 @@
+<!doctype html>
+<head>
+<link rel="shortcut icon" href="../images/brand 1.png" />
+<title>smart electricty counter</title>
+<link rel='stylesheet' href='../css/main.css'>
+<!--<link rel='stylesheet' href='../bootstrap/css/bootstrap.css'>
+!-->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript" src="../js/gauge.min.js"></script>  
+<script type="text/javascript" src="../js/jquery.js"></script>  
+
+   <script type="text/javascript">
+ 
+
+    
+
+
+    </script>
+
+</head>
+
+<body>
+  <header id="pageHeader">
+  <span>
+  <ul>
+  <li><a href="#home">حساب کاربری</a></li>
+  <li><a href="#news">پرداخت قبض</a></li>
+  <li class="dropdown">
+    <a href="javascript:void(0)" class="dropbtn">اطلاع رسانی اشکال</a>
+    <div class="dropdown-content">
+      <a href="#">مشکل کنتور</a>
+      <a href="#">مشکل پرداخت</a>
+      <a href="#">مشکل سامانه</a>
+    </div>
+  </li>
+  
+</ul>
+
+  <img src="../images/brand.png" alt="nemid" class="brand">
+<span style="color:white; position:absolute; top:18px; right:20px;">مشترک : مصرف خانگی</span>
+  </span>
+  </header>
+  <article id="mainArticle">
+<div class="part1">
+<div style="height:8%;"></div>
+<div style=" height:80%; //margin-left:-200px;">
+<canvas 
+	
+  data-type="radial-gauge"
+        data-width="400"
+        data-height="400"
+        data-units="آمپر"
+        data-title="false"
+        data-value="0"
+        data-animate-on-init="true"
+        data-animated-value="true"
+        data-min-value="0"
+        data-max-value="20"
+        data-major-ticks="0,2.5,5,7.5,10,12.5,15,17.5,20"
+        data-minor-ticks="2"
+        data-stroke-ticks="false"
+        data-highlights='[
+            { "from": 0, "to": 7, "color": "rgba(75,161,67,0.9)" },
+            { "from": 7, "to": 15, "color": "rgba(255,193,7,0.8)" },
+            { "from": 15, "to": 20, "color": "rgba(226,53,10,0.8)" }
+        ]'
+        data-color-plate="transparent"
+        data-color-major-ticks="#f5f5f5"
+        data-color-minor-ticks="#ddd"
+        data-color-title="#fff"
+        data-color-units="#ccc"
+        data-color-numbers="#eee"
+        data-color-needle-start="rgba(240, 128, 128, 1)"
+        data-color-needle-end="rgba(255, 160, 122, .9)"
+        data-value-box="true"
+        data-animation-rule="bounce"
+        data-animation-duration="500"
+        data-border-outer-width="3"
+        data-border-middle-width="3"
+        data-border-inner-width="3"
+></canvas>
+  <div id="abi">0</div>
+
+</div>
+</div>
+<div class="part2">
+<div style="height:72%;"></div>
+<div style="width:60%; margin-left:auto; margin-right:auto;">
+<a onClick="makeok()" class="button1" id="btnconnect" style="cursor:pointer;"  disabled > وصل مجدد</a> 
+</div>
+</div>
+<div class="part3">
+  <div style="height:76%;"></div>
+  
+  <div style="height:auto; ">
+  <div style="margin-right:auto; margin-left:auto; width:63.9%;">
+  <label class="switch led1"  value="off" >
+
+  <input type="checkbox" class="checkbox" onClick="toggle('led1')" >
+  
+  <span class="slider round"style="text-align:center;">1</span>
+</label>
+  <label class="switch1 led2" value="off" >
+  <input type="checkbox" class="checkbox1" onClick="toggle('led2')">
+  <span class="slider1 round1 " style="text-align:center;">2</span>
+</label>
+  <label class="switch2 led3"  value="off">
+  <input type="checkbox" class="checkbox2" onClick="toggle('led3')">
+  <span class="slider2 round2" style="text-align:center;">3</span>
+</label>
+</div>
+</div>
+
+</div>
+
+</article>
+  <nav id="mainNav">
+<div class="sidebar">
+  <a class="active" href="#home">جریان مصرفی لحظه ای</a>
+  <a id="corrupt" href="integral.html">مصرف دوره ای</a>
+  <a href="table">مشاهده اخطار های ارسالی</a>
+ <!-- <a href="#about"></a> -->
+</div></div>
+  </nav>
+  <div id="siteAds">
+  <img src="../images/check.png" id="check">
+  <span id="changintext">وضعیت مصرف مطلوب است  
+</span>
+  </div>
+  <footer id="pageFooter">حق این اثر به طور کامل در اختیار مرکز تحقیقات اینترنت اشیا است </footer>
+</body>
+<script>
+var datastring = "";
+function toggle(u){
+var x= document.getElementsByClassName(u);
+
+if(x[0].value == "off"){
+x[0].value="on";
+
+}
+else{
+
+x[0].value="off";
+}
+
+//alert(x[0].value);
+}		
+toggle("led1");
+toggle("led2");
+toggle("led3");
+
+
+
+
+
+
+var gvalue=0;
+
+
+
+		
+		document.getElementById("btnconnect").style.animation="NULL";
+		$("#btnconnect").hover(function(){
+  $(this).css("background-color", "rgba(0,0,0,0)");
+  $(this).css("color", "rgba(255,255,255,1)");
+  
+  }
+		)
+		
+		
+		
+	if (!Array.prototype.forEach) {
+    Array.prototype.forEach = function(cb) {
+        var i = 0, s = this.length;
+        for (; i < s; i++) {
+            cb && cb(this[i], i, this);
+        }
+    }
+
+}
+
+document.fonts && document.fonts.forEach(function(font) {
+    font.loaded.then(function() {
+        if (font.family.match(/Led/)) {
+            document.gauges.forEach(function(gauge) {
+                gauge.update();
+                gauge.options.renderTo.style.visibility = 'visible';
+            });
+        }
+    });
+});
+var timers = [];
+
+
+function animateGauges() {
+    document.gauges.forEach(function(gauge) {
+        timers.push(setInterval(function() {
+            gauge.value = gvalue         }, gauge.animation.duration + 50));
+    });
+}
+
+function stopGaugesAnimation() {
+    timers.forEach(function(timer) {
+        clearInterval(timer);
+    });
+}  
+function resize() {
+    
+
+    document.gauges.forEach(function (gauge) {
+        gauge.update({ width: 250, height: 250 });
+    });
+}
+		
+		
+				$(document).ready(function(){animateGauges();
+					resize();
+
+
+});
+		
+		
+		
+		
+
+		  var warning = 0;
+   var dataa=0;      
+	var i=0;
+	var i8=" "  ;
+function makeok(){
+warning = 0;
+if(i==10000)
+i=0;
+}
+
+  	setInterval(function() {
+	var countermac=0;
+	datastring = "";
+
+//alert(datastring);
+//document.getElementById("haha").innerHTML=jp[0].value;
+
+	
+	if(warning == 0){
+var jp = document.getElementsByClassName("led1");
+//datastring =datastring+"led1=";
+datastring =datastring+jp[0].value;
+if(jp[0].value == "on")
+countermac++;
+datastring = datastring + ",";
+jp = document.getElementsByClassName("led2");
+//datastring =datastring+"led2=";
+datastring =datastring+jp[0].value;
+if(jp[0].value == "on")
+countermac++;
+datastring = datastring + ",";
+jp = document.getElementsByClassName("led3");
+//datastring =datastring+"led3=";
+datastring =datastring+jp[0].value;
+if(jp[0].value == "on")
+countermac++;
+datastring = datastring + ",";
+
+countermac *= 6;
+dataa=countermac;
+dataa += Math.random()*2;
+gvalue=dataa;
+		  
+
+
+		  
+			  var x = document.getElementById("abi");   // Get the element with id="demo"
+	var komak;
+	komak = dataa*100;
+	komak= parseInt(komak);
+	komak = parseFloat(komak/100);
+x.innerHTML = "جریان مصرفی شما: " + komak;
+		var y = document.getElementById("siteAds");
+		var z = document.getElementById("changintext");
+		var u = document.getElementById("check");
+	if(dataa >=7 && dataa <=15)
+		{
+		y.style.backgroundColor="rgba(255,193,7,0.8)";
+i=0;
+		z.innerHTML = "وضعیت مصرف در حال افزایش است";
+		u.src="../images/warning.png";
+z.style.top="0px";
+
+		}
+		if( dataa >15 ){
+		y.style.backgroundColor="rgba(226,53,69,0.8)";
+//var t = document.getElementById("counter");		
+		var flag=10,render; 
+				render = (i/1000);
+				flag =flag-render;
+				flag = parseInt(flag);
+z.style.position="relative";
+
+z.style.top="-10px";
+				var q = " وضعیت مصرف شما بیش از حد مجاز است در صورت عدم کاهش تا  ";
+				q+= '<h1 id="counter">';
+				q+= flag;
+				q+='</h1>';
+				q+=" ثانیه دیگر اشتراک شما قطع خواهد شد";
+				z.innerHTML = q;  
+				i+=1000;
+ 
+		//		alert(q);
+		u.src="../images/error.png";
+
+				//alert (q);
+		}
+		if(dataa >=0 && dataa<7){
+		y.style.backgroundColor="rgba(75,161,67,0.9)";
+
+		z.innerHTML = "وضعیت مصرف مطلوب است";		
+z.style.top="0px";
+		u.src="../images/check.png";
+
+i=0;	
+
+	}
+}		
+
+	if(i == 10000)	
+		{
+		warning = 1;
+//alert ("1");
+dataa = 0;		
+datastring="off,off,off,";
+gvalue=0;
+	
+	var y1 = document.getElementById("changintext");
+y1.innerHTML = "اشتراک شما به دلیل مصرف با جریان بیش از حد مجاز قطع گردید لطفا برای اتصال مجدد اقدام فرمائید";
+		document.getElementById("siteAds").style.backgroundColor="black";
+		document.getElementById("abi").innerHTML="0";
+$('#btnconnect').removeAttr("disabled");		
+
+				
+		document.getElementById("btnconnect").style.animation="bouncy 5s infinite linear";
+		$("#btnconnect").mouseenter(function(){
+  $(this).css("background-color", "rgba(255,255,255,0.8)");
+  $(this).css("color", "rgba(0,0,0,1)");
+		
+    
+  
+  }
+		)
+		
+				$("#btnconnect").mouseleave(function(){
+  $(this).css("background-color", "rgba(255,255,255,0)");
+  $(this).css("color", "rgba(255,255,255,1)");
+  
+  }
+		)
+		
+		}
+else{
+		document.getElementById("btnconnect").style.animation="NULL";
+		$("#btnconnect").hover(function(){
+  $(this).css("background-color", "rgba(0,0,0,0)");
+  $(this).css("color", "rgba(255,255,255,1)");
+  
+  }
+		)
+
+}
+
+		
+if(datastring != ""){
+	  $.ajax({url:"http://192.168.4.1", data:datastring ,type : "POST"  , success: function (teea2){
+            //document.write(errorThrown);
+            //document.getElementById("padmobile").innerHTML = result;
+
+    }});
+}
+	
+				}
+  				
+		
+		, 1000);    
+	
+
+		
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+developed by amir rasekhnia and amir soltapur as two members of iotiran GoodLUcK! 36hours
+!-->
